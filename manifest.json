@@ -1,0 +1,15 @@
+{
+  "name": "Quick Sketch Pro",
+  "short_name": "SketchPro",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#18181b",
+  "theme_color": "#18181b",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%231f1f23'/><path d='M140 372L372 140M372 140H220M372 140V292' stroke='%233b82f6' stroke-width='48' stroke-linecap='round' stroke-linejoin='round'/></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
