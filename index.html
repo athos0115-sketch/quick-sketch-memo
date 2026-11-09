@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#18181b">
   <!-- 인라인 Data URI 매니페스트 (별도 파일 없이 단일 HTML로 PWA 설치 지원) -->
-  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Quick%20Sketch%20Pro%22%2C%22short_name%22%3A%22SketchPro%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%2318181b%22%2C%22theme_color%22%3A%22%2318181b%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20512%20512'%3E%3Crect%20width%3D'512'%20height%3D'512'%20rx%3D'128'%20fill%3D'%231f1f23'%2F%3E%3Cpath%20d%3D'M140%20372L372%20140M372%20140H220M372%20140V292'%20stroke%3D'%233b82f6'%20stroke-width%3D'48'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%2F%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+  <link rel="manifest" href="manifest.json">
   <style id="dynamicTextStyle">
     #memoText { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", "Malgun Gothic", sans-serif; font-size: 18px; font-weight: normal; line-height: 1.6; }
     #memoText h1 { font-size: 30px; font-weight: bold; margin-bottom: 8px; }
@@ -6887,18 +6887,9 @@
       initTouchEvents();
     });
 
-    // --- PWA Service Worker 인라인 등록 (Chrome 앱 설치 트리거) ---
+    // --- PWA Service Worker 등록 (Chrome 앱 설치 트리거) ---
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        const swCode = `
-          self.addEventListener('install', (e) => { self.skipWaiting(); });
-          self.addEventListener('activate', (e) => { e.waitUntil(clients.claim()); });
-          self.addEventListener('fetch', (e) => { e.respondWith(fetch(e.request).catch(() => caches.match(e.request))); });
-        `;
-        const blob = new Blob([swCode], { type: 'application/javascript' });
-        const swUrl = URL.createObjectURL(blob);
-        navigator.serviceWorker.register(swUrl).catch(() => {});
-      });
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
     }
 
   </script>
